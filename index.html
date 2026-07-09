@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infynite AI — Ramia Shikhare | AI Film Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0b0e14;
+    --panel:#12161f;
+    --panel2:#171c27;
+    --line:rgba(255,255,255,0.09);
+    --gold:#f5a028;
+    --coral:#e8593a;
+    --cyan:#2fc0dc;
+    --blue:#3f7fe0;
+    --text:#eef1f6;
+    --muted:#8d96a8;
+    --grad: linear-gradient(100deg, var(--gold) 0%, var(--coral) 30%, #7a5fd6 55%, var(--blue) 75%, var(--cyan) 100%);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--coral); color:#fff; }
+
+  h1,h2,h3, .display{
+    font-family:'Space Grotesk', sans-serif;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;}
+
+  /* background atmosphere */
+  .noise-bg{
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(245,160,40,0.10), transparent 60%),
+      radial-gradient(1000px 700px at 100% 10%, rgba(47,192,220,0.10), transparent 55%),
+      var(--ink);
+  }
+
+  /* ============ NAV ============ */
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 6vw;
+    background:rgba(11,14,20,0.72);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:34px; height:34px; border-radius:50%;
+    background:var(--grad);
+    display:flex; align-items:center; justify-content:center;
+    font-size:0; position:relative;
+  }
+  .brand-mark::after{
+    content:"";
+    position:absolute; inset:3px;
+    background:var(--ink);
+    border-radius:50%;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'><path d='M25 10 C10 10 10 50 25 50 C40 50 40 10 55 10' fill='none' stroke='black' stroke-width='11'/></svg>") no-repeat center / 70%;
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 60'><path d='M25 10 C10 10 10 50 25 50 C40 50 40 10 55 10' fill='none' stroke='black' stroke-width='11'/></svg>") no-repeat center / 70%;
+    display:none;
+  }
+  .brand-name{ font-family:'Space Grotesk', sans-serif; font-weight:700; letter-spacing:0.08em; font-size:15px; }
+  .brand-name span{ 
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  nav{ display:flex; gap:32px; font-size:14px; color:var(--muted); }
+  nav a{ text-decoration:none; transition:color .2s; }
+  nav a:hover{ color:var(--text); }
+  .nav-toggle{ display:none; }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:92vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding:12vh 6vw 8vh;
+    position:relative;
+  }
+  .eyebrow{
+    font-size:12px; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before, .eyebrow::after{ content:""; width:26px; height:1px; background:var(--line); }
+
+  .hero h1{
+    font-size:clamp(40px, 8vw, 96px);
+    font-weight:700;
+    line-height:0.98;
+    letter-spacing:0.02em;
+  }
+  .hero h1 .infy{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .hero-tagline{
+    margin-top:26px;
+    font-size:clamp(15px, 2vw, 19px);
+    color:var(--muted);
+    max-width:560px;
+    font-weight:400;
+  }
+  .hero-tagline strong{ color:var(--text); font-weight:500; }
+
+  .hero-cta{
+    margin-top:44px;
+    display:flex; gap:16px; flex-wrap:wrap; justify-content:center;
+  }
+  .btn{
+    padding:13px 28px;
+    border-radius:100px;
+    font-size:14px; font-weight:600;
+    text-decoration:none;
+    transition:transform .25s ease, box-shadow .25s ease;
+    display:inline-block;
+  }
+  .btn-primary{
+    background:var(--grad);
+    color:#0b0e14;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px -8px rgba(232,89,58,0.5); }
+  .btn-ghost{
+    border:1px solid var(--line);
+    color:var(--text);
+  }
+  .btn-ghost:hover{ border-color:rgba(255,255,255,0.3); transform:translateY(-2px); }
+
+  .hero-stats{
+    margin-top:64px;
+    display:flex; gap:48px; flex-wrap:wrap; justify-content:center;
+  }
+  .stat{ text-align:center; }
+  .stat b{ font-family:'Space Grotesk',sans-serif; font-size:26px; display:block; }
+  .stat span{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; }
+
+  /* ============ SECTION HEADS ============ */
+  section{ padding:100px 6vw; max-width:1400px; margin:0 auto; }
+  .section-head{ margin-bottom:56px; max-width:640px; }
+  .section-head .eyebrow{ justify-content:flex-start; }
+  .section-head .eyebrow::after{ display:none; }
+  .section-head h2{
+    font-size:clamp(28px, 4vw, 42px);
+    font-weight:600;
+  }
+  .section-head p{ color:var(--muted); margin-top:14px; font-size:15px; }
+
+  /* ============ ABOUT ============ */
+  .about{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .about-photo{
+    position:relative;
+    border-radius:20px;
+    overflow:hidden;
+    aspect-ratio:3/4;
+  }
+  .about-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .about-photo::after{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:20px;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .about-body h3{ font-size:22px; margin-bottom:6px; }
+  .about-role{ color:var(--muted); font-size:14px; margin-bottom:20px; }
+  .about-body p{ color:#c3c9d6; font-size:15.5px; max-width:560px; margin-bottom:14px; }
+  .about-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+  .tag{
+    font-size:12px; padding:7px 14px; border-radius:100px;
+    border:1px solid var(--line); color:var(--muted);
+  }
+
+  /* ============ GALLERY ============ */
+  .cat-block{ margin-bottom:70px; }
+  .cat-head{
+    display:flex; align-items:baseline; gap:14px;
+    margin-bottom:26px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:16px;
+  }
+  .cat-head h3{ font-size:20px; font-weight:600; }
+  .cat-head .count{ color:var(--muted); font-size:13px; }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:22px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .card:hover{ transform:translateY(-4px); border-color:rgba(255,255,255,0.18); }
+  .card-media{
+    position:relative;
+    aspect-ratio:16/9;
+    background:#000;
+    cursor:pointer;
+    overflow:hidden;
+  }
+  .card-media.vertical{ aspect-ratio:9/13; }
+  .card-media video, .card-media img{
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .play-btn{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(0,0,0,0.28);
+    transition:background .25s ease;
+    pointer-events:none;
+  }
+  .play-btn svg{ width:52px; height:52px; filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5)); }
+  .card-media:hover .play-btn{ background:rgba(0,0,0,0.15); }
+  .card-media.playing .play-btn{ opacity:0; }
+  .duration-badge{
+    position:absolute; bottom:10px; right:10px;
+    background:rgba(0,0,0,0.6);
+    font-size:11px; padding:3px 8px; border-radius:6px;
+    letter-spacing:0.03em;
+  }
+  .card-body{ padding:16px 18px 20px; }
+  .card-body h4{ font-size:15.5px; font-weight:600; margin-bottom:5px; }
+  .card-body p{ font-size:13px; color:var(--muted); }
+
+  /* ============ CONTACT ============ */
+  .contact{
+    text-align:center;
+    padding-top:60px; padding-bottom:60px;
+  }
+  .contact h2{ font-size:clamp(30px,5vw,52px); font-weight:700; margin-bottom:18px; }
+  .contact .grad-text{
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .contact p{ color:var(--muted); margin-bottom:34px; }
+  .contact-links{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  footer{
+    border-top:1px solid var(--line);
+    padding:30px 6vw;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    color:var(--muted); font-size:13px;
+  }
+
+  @media (max-width:820px){
+    nav{ display:none; }
+    .about{ grid-template-columns:1fr; }
+    .about-photo{ max-width:240px; margin:0 auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+    .reveal, .card, .hero .eyebrow, .hero h1, .hero-tagline, .hero-cta, .hero-stats{
+      opacity:1 !important; transform:none !important;
+    }
+  }
+
+  /* ============ ANIMATIONS ============ */
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(28px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes fadeIn{
+    from{ opacity:0; }
+    to{ opacity:1; }
+  }
+  @keyframes floatY{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-8px); }
+  }
+  @keyframes gradientShift{
+    0%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+  }
+
+  /* animated gradient text/brand mark move a little for life */
+  .hero h1 .infy, .brand-name span, .contact .grad-text{
+    background-size:200% 200%;
+    animation:gradientShift 6s ease-in-out infinite;
+  }
+  .brand-mark{
+    background-size:200% 200%;
+    animation:gradientShift 6s ease-in-out infinite;
+  }
+
+  /* hero entrance */
+  .hero .eyebrow{ opacity:0; animation:fadeUp .7s ease forwards; animation-delay:.05s; }
+  .hero h1{ opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.15s; }
+  .hero-tagline{ opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.3s; }
+  .hero-cta{ opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.45s; }
+  .hero-stats{ opacity:0; animation:fadeUp .8s ease forwards; animation-delay:.6s; }
+
+  header{ animation:fadeIn .6s ease; }
+
+  /* gentle floating accent on play button so cards feel alive before hover */
+  .play-btn{ animation:floatY 3.2s ease-in-out infinite; }
+
+  /* scroll reveal (JS toggles .in-view) */
+  .reveal{
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .reveal-stagger.in-view{ transition-delay:var(--d, 0s); }
+
+  /* smoother card motion + entrance */
+  .card{
+    opacity:0;
+    transform:translateY(24px);
+    transition:transform .5s cubic-bezier(.2,.7,.3,1), border-color .35s ease, box-shadow .35s ease, opacity .5s ease;
+  }
+  .card.card-in{ opacity:1; transform:translateY(0); }
+  .card.card-in:hover{ transform:translateY(-4px); }
+  .card:hover{ box-shadow:0 18px 40px -20px rgba(0,0,0,0.6); }
+
+  .btn-primary{ background-size:200% 200%; animation:gradientShift 6s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<div class="noise-bg"></div>
+<noscript>
+  <style>
+    .reveal, .card, .hero .eyebrow, .hero h1, .hero-tagline, .hero-cta, .hero-stats{
+      opacity:1 !important; transform:none !important; animation:none !important;
+    }
+  </style>
+</noscript>
+
+<header>
+  <div class="brand">
+    <img src="log.jpg" alt="Infynite AI" style="width:32px;height:32px;border-radius:50%;object-fit:cover;">
+    <span class="brand-name">INFY<span>NITE</span> AI</span>
+  </div>
+  <nav>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="https://www.linkedin.com/in/ramiagattupelli/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/infyniteaistudio/" target="_blank" rel="noopener">Instagram</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">AI Film &amp; Animation Studio</div>
+  <h1>Imagine.<br>Innovate.<br><span class="infy">Infinite</span> Possibilities.</h1>
+  <p class="hero-tagline">A reel of AI-generated films by <strong>Ramia Shikhare</strong> — brand campaigns, cinematic worlds, cultural stories and character animation, built end‑to‑end with generative video.</p>
+  <div class="hero-cta">
+    <a href="#work" class="btn btn-primary">View the reel</a>
+    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>14</b><span>Films</span></div>
+    <div class="stat"><b>6</b><span>Categories</span></div>
+    <div class="stat"><b>4K</b><span>Native output</span></div>
+  </div>
+</section>
+
+<section id="about" class="about reveal">
+  <div class="about-photo">
+    <img src="p.jpg" alt="Ramia Shikhare">
+  </div>
+  <div class="about-body">
+    <h3>Ramia Shikhare</h3>
+    <div class="about-role">Founder &amp; AI Enthusiast, Infynite AI</div>
+    <p>I build short-form video and animation entirely with generative AI tools — from concept and script to fully rendered, sound-designed film. My work spans product campaigns, mythology-inspired art, fantasy worlds and educational content.</p>
+    <p>Every piece on this page was imagined, directed and produced by me, exploring how far AI-native filmmaking can go.</p>
+    <div class="about-tags">
+      <span class="tag">AI Video Generation</span>
+      <span class="tag">Brand Campaigns</span>
+      <span class="tag">Character Animation</span>
+      <span class="tag">Sound &amp; Music</span>
+      <span class="tag">3D / Cinematic Scenes</span>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-head reveal">
+    <div class="eyebrow">Selected Work</div>
+    <h2>The Showreel</h2>
+    <p>Tap any film to play. Grouped by the kind of story each one tells.</p>
+  </div>
+
+  <!-- BRAND & PRODUCT -->
+  <div class="cat-block reveal">
+    <div class="cat-head"><h3>Brand &amp; Product Campaigns</h3><span class="count">6 films</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-media" data-video="lacoste.MP4">
+          <img src="lacoste.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:32</div>
+        </div>
+        <div class="card-body"><h4>Lacoste — Brand Film</h4><p>Product-led ad concept in the Lacoste world.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="nivea.mp4">
+          <img src="nivea.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:25</div>
+        </div>
+        <div class="card-body"><h4>Nivea — Brand Film</h4><p>Clean, product-forward 4K campaign spot.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="mermie.mp4">
+          <img src="mermie.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:19</div>
+        </div>
+        <div class="card-body"><h4>Mermie — Perfume Ad</h4><p>Mood-driven fragrance advertisement.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="blueberry.mp4">
+          <img src="bl.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:15</div>
+        </div>
+        <div class="card-body"><h4>Blueberry Energy Drink</h4><p>Punchy beverage ad scene.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="thunder.mp4">
+          <img src="th.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:15</div>
+        </div>
+        <div class="card-body"><h4>Thunder Energy</h4><p>High-energy 4K product scene.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="cadillac.mp4">
+          <img src="cadillac.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:14</div>
+        </div>
+        <div class="card-body"><h4>Vintage Cadillac</h4><p>Automotive film set in a nature scene.</p></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CINEMATIC WORLDS -->
+  <div class="cat-block reveal">
+    <div class="cat-head"><h3>Cinematic &amp; Fantasy Worlds</h3><span class="count">3 films</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-media" data-video="Dragon.mp4">
+          <img src="dragon.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:18</div>
+        </div>
+        <div class="card-body"><h4>Fantasy Warrior &amp; Dragon</h4><p>Epic character scene in 4K.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="Zombie.mp4">
+          <img src="zombie.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:23</div>
+        </div>
+        <div class="card-body"><h4>Jungle Zombie Scene</h4><p>Atmospheric horror-thriller world.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="Flower.mp4">
+          <img src="flower.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:14</div>
+        </div>
+        <div class="card-body"><h4>Mumbai Flower Market</h4><p>Vivid slice-of-life street scene.</p></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CULTURE & MUSIC -->
+  <div class="cat-block reveal">
+    <div class="cat-head"><h3>Culture &amp; Music</h3><span class="count">2 films</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-media" data-video="shiva.mp4">
+          <img src="shiva.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:15</div>
+        </div>
+        <div class="card-body"><h4>Lord Shiva — Tandava Loop</h4><p>Devotional animated loop.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="song.mp4">
+          <img src="song.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">3:48</div>
+        </div>
+        <div class="card-body"><h4>Parwana — AI Generated Song</h4><p>Full AI-generated music video.</p></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="cat-block reveal">
+    <div class="cat-head"><h3>Education &amp; Kids</h3><span class="count">2 films</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-media" data-video="dental.mp4">
+          <img src="dental.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:22</div>
+        </div>
+        <div class="card-body"><h4>3D Dental Implant Explainer</h4><p>Educational 3D medical animation.</p></div>
+      </div>
+
+      <div class="card">
+        <div class="card-media" data-video="abc.mp4">
+          <img src="abc.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">2:05</div>
+        </div>
+        <div class="card-body"><h4>Kids ABC — Learning Film</h4><p>Colourful animated alphabet lesson.</p></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MORE -->
+  <div class="cat-block reveal">
+    <div class="cat-head"><h3>More From the Reel</h3><span class="count">1 film</span></div>
+    <div class="grid">
+      <div class="card" style="max-width:320px;">
+        <div class="card-media vertical" data-video="baby.mov">
+          <img src="baby.jpg" alt="">
+          <video preload="none" playsinline muted loop></video>
+          <div class="play-btn">▶</div>
+          <div class="duration-badge">0:17</div>
+        </div>
+        <div class="card-body"><h4>Vertical Reel Cut</h4><p>Mobile-format short.</p></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section id="contact" class="contact reveal">
+  <div class="eyebrow" style="justify-content:center;">Let's build the future, together</div>
+  <h2>Have a project in mind?<br><span class="grad-text">Let's talk.</span></h2>
+  <p>ramiashikhareofficial@gmail.com</p>
+  <div class="contact-links">
+    <a href="mailto:ramiavfx@gmail.com" class="btn btn-primary">Email Me</a>
+    <a href="https://drive.google.com/drive/folders/1fDAr5XiSm34es5C21D_lTpuYW4W1KSnq?usp=sharing" target="_blank" rel="noopener" class="btn btn-ghost">View on Drive</a>
+    <a href="https://www.linkedin.com/in/ramiagattupelli/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+    <a href="https://www.instagram.com/infyniteaistudio/" target="_blank" rel="noopener" class="btn btn-ghost">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Infynite AI — Ramia Shikhare</span>
+  <span style="display:flex; gap:18px;">
+    <a href="https://www.linkedin.com/in/ramiagattupelli/" target="_blank" rel="noopener" style="text-decoration:none;">LinkedIn</a>
+    <a href="https://www.instagram.com/infyniteaistudio/" target="_blank" rel="noopener" style="text-decoration:none;">Instagram</a>
+  </span>
+  <span>Imagine. Innovate. Infinite Possibilities.</span>
+</footer>
+
+<script>
+  // Scroll-reveal animation for sections, category blocks, and cards
+  const revealTargets = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        const el = entry.target;
+        el.classList.add('in-view');
+
+        // stagger the cards inside this block, if any
+        const cardsInside = el.querySelectorAll('.card');
+        cardsInside.forEach((card, i) => {
+          card.style.transitionDelay = (i * 0.08) + 's';
+          card.classList.add('card-in');
+        });
+
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+  revealTargets.forEach(el => io.observe(el));
+
+  // Click-to-play video cards. Only one plays at a time.
+  const cards = document.querySelectorAll('.card-media');
+  let current = null;
+
+  cards.forEach(media => {
+    const video = media.querySelector('video');
+    const img = media.querySelector('img');
+    const src = media.getAttribute('data-video');
+
+    media.addEventListener('click', () => {
+      // stop any other playing video
+      if (current && current !== media) {
+        const v = current.querySelector('video');
+        v.pause();
+        current.classList.remove('playing');
+        current.querySelector('img').style.display = 'block';
+      }
+
+      if (!video.src) {
+        video.src = src;
+      }
+
+      if (video.paused) {
+        video.muted = false;
+        video.controls = true;
+        video.play();
+        media.classList.add('playing');
+        img.style.display = 'none';
+        current = media;
+      } else {
+        video.pause();
+        media.classList.remove('playing');
+        img.style.display = 'block';
+      }
+    });
+
+    video.addEventListener('ended', () => {
+      media.classList.remove('playing');
+      img.style.display = 'block';
+    });
+  });
+</script>
+
+</body>
+</html>
+        
